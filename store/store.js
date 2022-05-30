@@ -11,33 +11,33 @@ import {
     PURGE,
     REGISTER
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-
-const persistConfig = {
-    key: "persist-key",
-    storage
-}
-
+// import storage from "redux-persist/lib/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const reducer = combineReducers({
     getCarouselData,
 })
 
+
+const persistConfig = {
+    key: "persist-key",
+    storage: AsyncStorage,
+}
+
 const persistedReducer = persistReducer(persistConfig, reducer)
 
-const store = configureStore({
+const Store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => {
+    middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            // serializableCheck: {
-            //     ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            // }
-            immutableCheck: false,
-            serializableCheck: false,
+            serializableCheck: {
+                ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            },
+            // immutableCheck: false,
+            // serializableCheck: false,
         })
-    }
 })
 
 
-export const persistor = persistStore(store)
-export default store;
+export const Persistor = persistStore(Store)
+export default Store;

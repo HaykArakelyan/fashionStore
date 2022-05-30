@@ -5,6 +5,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { useSelector } from 'react-redux';
+// import { data } from '../data';
 
 function StartScreen(props) {
     const data = useSelector((state) => state.getCarouselData.data)
