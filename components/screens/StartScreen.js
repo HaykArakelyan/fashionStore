@@ -1,17 +1,28 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Text, ImageBackground, Dimensions, StatusBar, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Text, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { useSelector } from 'react-redux';
-// import { data } from '../data';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSkipped } from "../../store/guideReucer"
+import { useNavigation } from "@react-navigation/native";
 
 function StartScreen(props) {
-    const data = useSelector((state) => state.getCarouselData.data)
+    const data = useSelector((state) => state.getCarouselData.data);
+    const { isSkipped } = useSelector((state) => state.isGuideSkipped)
     const [index, setIndex] = useState(0);
 
     const carouselRef = useRef();
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+
+    if (isSkipped) {
+        navigation.navigate("LoginScreen");
+    } else {
+        navigation.navigate("StartScreen");
+    }
 
 
     const goNextPage = () => {
@@ -20,12 +31,11 @@ function StartScreen(props) {
     }
 
     const handleGetStartedPress = () => {
-        console.log("navigated");
+        dispatch(setIsSkipped())
     }
 
     const skipGuide = () => {
-        setIndex(2);
-        carouselRef.current.snapToItem(2);// Not working if instead of 2 is written "index"
+        dispatch(setIsSkipped())
     }
 
     function renderItem({ item }) {

@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import getCarouselData from "./carouselReducers";
+import isGuideSkipped from "./guideReucer";
 
 import {
     persistStore,
@@ -16,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const reducer = combineReducers({
     getCarouselData,
+    isGuideSkipped,
 })
 
 
@@ -30,11 +32,11 @@ const Store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
-                ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-            },
-            // immutableCheck: false,
-            // serializableCheck: false,
+            // serializableCheck: {
+            //     ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            // },
+            immutableCheck: false,
+            serializableCheck: false,
         })
 })
 
