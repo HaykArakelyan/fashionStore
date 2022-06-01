@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { Provider } from 'react-redux';
 import Store from "./store/store.js";
@@ -10,12 +10,19 @@ import { Persistor } from './store/store.js';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native"
 
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from '@react-navigation/native';
+
 import StartScreen from './components/screens/StartScreen';
 import LoginScreen from './components/screens/LoginScreen.js';
+import RegisterScreen from './components/screens/RegisterScreen.js';
+import Dashboard from './components/screens/Dashboard.js';
+import CustomButton from './components/reusable/CustomButton.js';
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
+  const navigation = useNavigation()
   return (
     <Stack.Navigator
       initialRouteName='StartScreen'
@@ -30,6 +37,54 @@ const StackNavigator = () => {
       <Stack.Screen
         name='LoginScreen'
         component={LoginScreen}
+      />
+      <Stack.Screen
+        name='RegisterScreen'
+        component={RegisterScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "",
+          headerLeft: () =>
+            <View
+              style={{
+                paddingHorizontal: 20,
+              }}
+            >
+              <CustomButton
+                title={
+                  <Icon
+                    name='arrow-left'
+                    size={15}
+                    onPress={() =>
+                      navigation.navigate("LoginScreen")}
+                  />}
+              />
+            </View>,
+        }}
+      />
+      <Stack.Screen
+        name='Dashboard'
+        component={Dashboard}
+        options={{
+          headerTitle: "",
+          headerShown: true,
+          headerLeft: () =>
+            <View
+              style={{
+                paddingHorizontal: 20,
+              }}
+            >
+              <CustomButton
+                title={
+                  <Icon
+                    name='arrow-left'
+                    size={15}
+                    onPress={() =>
+                      navigation.navigate("LoginScreen")}
+                  />}
+              />
+            </View>,
+        }}
       />
     </Stack.Navigator>
   )
