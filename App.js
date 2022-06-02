@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
@@ -16,7 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import StartScreen from './components/screens/StartScreen';
 import LoginScreen from './components/screens/LoginScreen.js';
 import RegisterScreen from './components/screens/RegisterScreen.js';
-import Dashboard from './components/screens/Dashboard.js';
+import HomeScreen from "./components/screens/HomeScreen.js"
 import CustomButton from './components/reusable/CustomButton.js';
 
 const Stack = createStackNavigator();
@@ -63,8 +65,8 @@ const StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name='Dashboard'
-        component={Dashboard}
+        name='HomeScreen'
+        component={HomeScreen}
         options={{
           headerTitle: "",
           headerShown: true,

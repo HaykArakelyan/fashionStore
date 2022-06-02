@@ -25,7 +25,7 @@ function LoginScreen() {
     }
 
     const handleLogIn = () => {
-        navigation.navigate("Dashboard")
+        navigation.navigate("HomeScreen")
     }
     return (
         <View>

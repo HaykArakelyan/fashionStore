@@ -30,7 +30,7 @@ function RegisterScreen(props) {
     }
 
     const handleRegister = () => {
-        navigation.navigate("Dashboard");
+        navigation.navigate("HomeScreen");
     }
 
     return (
