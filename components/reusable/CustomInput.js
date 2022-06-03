@@ -1,5 +1,8 @@
 import React from 'react';
-import { TextInput } from 'react-native';
+import {
+    TextInput,
+    StyleSheet,
+} from 'react-native';
 
 function CustomInput({
     placeholderText,
@@ -10,28 +13,33 @@ function CustomInput({
     onFocusIn,
     onFocusOut,
     hasBorder,
-    updatePassword,
+    updateText,
 }) {
+
+    const styles = StyleSheet.create({
+        textInput: {
+            backgroundColor: inputColor,
+            borderRadius: 15,
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            color: textColor,
+            fontSize: textSize,
+            borderWidth: hasBorder ? 2 : 0,
+            borderColor: "#FE7825",
+            borderStyle: "solid"
+        }
+    })
+
     return (
         <TextInput
             placeholder={placeholderText}
-            style={{
-                backgroundColor: inputColor,
-                borderRadius: 15,
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                color: textColor,
-                fontSize: textSize,
-                borderWidth: hasBorder ? 2 : 0,
-                borderColor: "#FE7825",
-                borderStyle: "solid"
-            }}
+            style={styles.textInput}
             secureTextEntry={isPassword}
             onFocus={onFocusIn}
             onBlur={onFocusOut}
             onChangeText={(text) => {
-                if (updatePassword !== undefined) {
-                    updatePassword(text)
+                if (updateText !== undefined) {
+                    updateText(text)
                 }
             }}
         >
@@ -39,5 +47,6 @@ function CustomInput({
         </TextInput>
     );
 }
+
 
 export default CustomInput;

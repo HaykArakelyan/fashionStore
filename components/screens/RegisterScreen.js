@@ -30,7 +30,7 @@ function RegisterScreen(props) {
     }
 
     const handleRegister = () => {
-        navigation.navigate("Dashboard");
+        navigation.navigate("LoginScreen");
     }
 
     return (
@@ -97,7 +97,7 @@ function RegisterScreen(props) {
                             isPassword={isHidden}
                             onFocusIn={() => setIsPasswordFocused(!isPasswordFocused)}
                             onFocusOut={() => setIsPasswordFocused(!isPasswordFocused)}
-                            updatePassword={(text) => setPassword(text)}
+                            updateText={(text) => setPassword(text)}
                         />
                         <Icon
                             onPress={() => handleShowPassword()}

@@ -13,19 +13,29 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { useDispatch } from 'react-redux';
+import { setIsLoggedIn } from "../../store/loggedInReducer.js";
+
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomButton from '../reusable/CustomButton';
 import CustomInput from '../reusable/CustomInput';
+import SocialButtons from '../reusable/SocialButtons.js';
 
 function LoginScreen() {
     const navigation = useNavigation()
+    const dispatch = useDispatch();
 
     const handleCreateNewAccount = () => {
         navigation.navigate("RegisterScreen");
     }
 
     const handleLogIn = () => {
-        navigation.navigate("Dashboard")
+        navigation.navigate("HomeScreen");
+        dispatch(setIsLoggedIn());
+    }
+
+    const handleRecoverPassword = () => {
+        console.log("recover password");
     }
     return (
         <View>
@@ -39,25 +49,15 @@ function LoginScreen() {
                         "rgba(242, 242, 242, 1)"
                     ]}
                     locations={[0, 0.9]}
-                    style={{
-                        paddingVertical: 100
-                    }}
+                    style={styles.linearGradient}
                 >
                     <Image
                         source={require("../../assets/images/logo.png")}
-                        style={{
-                            width: 100,
-                            height: 100,
-                            alignSelf: "center"
-                        }}
+                        style={styles.logo}
                     />
 
                     <LinearTextGradient
-                        style={{
-                            fontSize: 25,
-                            fontWeight: "700",
-                            alignSelf: "center"
-                        }}
+                        style={styles.linearTextGradient}
                         colors={[
                             "#E54500CF",
                             "#FF5C00C9",
@@ -72,32 +72,18 @@ function LoginScreen() {
                 </LinearGradient>
             </ImageBackground>
             <View style={styles.loginButtonsContainer}>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Icon
-                        name="google"
-                        size={15}
-                        color="red"
-                        style={styles.loginButtonIcons}
-                    />
-                    <View style={styles.LoginButtonTextContainer}>
-                        <Text style={styles.loginButtonText}>
-                            Continue with Google
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Icon
-                        name="facebook"
-                        size={12}
-                        color="blue"
-                        style={styles.loginButtonIcons}
-                    />
-                    <View style={styles.LoginButtonTextContainer}>
-                        <Text style={styles.loginButtonText}>
-                            Continue with Facebook
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                <SocialButtons
+                    title={"Continue with Google"}
+                    iconName={"google"}
+                    iconColor={'red'}
+                    titleColor={"#313131"}
+                />
+                <SocialButtons
+                    title={"Continue with Facebook"}
+                    iconName={"facebook"}
+                    iconColor={"blue"}
+                    titleColor={"#313131"}
+                />
             </View>
             <View style={styles.lineSegment}>
                 <Text style={styles.lineSegmentText}>
@@ -124,7 +110,10 @@ function LoginScreen() {
                     textColor={"#979797"}
                 />
             </View>
-            <View style={styles.recoverPasswordContainer}>
+            <TouchableOpacity
+                style={styles.recoverPasswordContainer}
+                onPress={() => handleRecoverPassword()}
+            >
                 <LinearTextGradient
                     colors={[
                         "#E54500CF",
@@ -139,7 +128,7 @@ function LoginScreen() {
                         Forgot your password?
                     </Text>
                 </LinearTextGradient>
-            </View>
+            </TouchableOpacity>
             <View style={styles.submitButtonContainer}>
                 <CustomButton
                     title={"Log In"}
@@ -184,11 +173,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
     },
-    LoginButtonTextContainer: {
+    logo: {
+        alignSelf: "center",
+        height: 100,
+        width: 100,
+    },
+    linearGradient: {
+        paddingVertical: 100
+    },
+    loginButtonTextContainer: {
         flex: 1,
     },
     loginButtonText: {
         textAlign: "center",
+    },
+    linearTextGradient: {
+        alignSelf: "center",
+        fontSize: 25,
+        fontWeight: "700",
     },
     loginButtonIcons: {
         alignSelf: "center",

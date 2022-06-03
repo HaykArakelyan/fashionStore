@@ -7,100 +7,24 @@ import Store from "./store/store.js";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Persistor } from './store/store.js';
 
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native";
 
-import Icon from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from '@react-navigation/native';
+import StackNavigator from "./components/StackNavigator.js";
 
-import StartScreen from './components/screens/StartScreen';
-import LoginScreen from './components/screens/LoginScreen.js';
-import RegisterScreen from './components/screens/RegisterScreen.js';
-import Dashboard from './components/screens/Dashboard.js';
-import CustomButton from './components/reusable/CustomButton.js';
-
-const Stack = createStackNavigator();
-
-const StackNavigator = () => {
-  const navigation = useNavigation()
-  return (
-    <Stack.Navigator
-      initialRouteName='StartScreen'
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen
-        name='StartScreen'
-        component={StartScreen}
-      />
-      <Stack.Screen
-        name='LoginScreen'
-        component={LoginScreen}
-      />
-      <Stack.Screen
-        name='RegisterScreen'
-        component={RegisterScreen}
-        options={{
-          headerShown: true,
-          headerTitle: "",
-          headerLeft: () =>
-            <View
-              style={{
-                paddingHorizontal: 20,
-              }}
-            >
-              <CustomButton
-                title={
-                  <Icon
-                    name='arrow-left'
-                    size={15}
-                    onPress={() =>
-                      navigation.navigate("LoginScreen")}
-                  />}
-              />
-            </View>,
-        }}
-      />
-      <Stack.Screen
-        name='Dashboard'
-        component={Dashboard}
-        options={{
-          headerTitle: "",
-          headerShown: true,
-          headerLeft: () =>
-            <View
-              style={{
-                paddingHorizontal: 20,
-              }}
-            >
-              <CustomButton
-                title={
-                  <Icon
-                    name='arrow-left'
-                    size={15}
-                    onPress={() =>
-                      navigation.navigate("LoginScreen")}
-                  />}
-              />
-            </View>,
-        }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-function App(props) {
+function App() {
   return (
     <Provider store={Store}>
-      <PersistGate loading={null} persistor={Persistor}>
+      <PersistGate
+        loading={null}
+        persistor={Persistor}
+      >
         <View style={styles.container}>
           <NavigationContainer>
             <StackNavigator />
           </NavigationContainer>
         </View>
       </PersistGate>
-    </Provider>
+    </Provider >
   );
 }
 

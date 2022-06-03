@@ -9,7 +9,7 @@ const isSkippedSlice = createSlice({
     initialState,
     reducers: {
         setIsSkipped(state) {
-            state.isSkipped = !state.isSkipped;
+            state.isSkipped = true;
         },
     },
 })

@@ -90,9 +90,13 @@ function StartScreen(props) {
                 }}
             />
 
-            < View style={index === 2 ? styles.alternativeButtons : styles.buttons}>
-                {index !== 2 &&
-                    <TouchableOpacity
+            < View style={
+                index === data.length - 1
+                    ? styles.alternativeButtons
+                    : styles.buttons
+            }>
+                {index !== data.length - 1
+                    && <TouchableOpacity
                         style={styles.skipButtonContainer}
                         onPress={() => skipGuide()}
                     >
@@ -100,7 +104,11 @@ function StartScreen(props) {
                     </TouchableOpacity>}
                 <TouchableOpacity
                     style={styles.nextButtonContainer}
-                    onPress={() => (index !== 2 ? goNextPage() : handleGetStartedPress())}
+                    onPress={() => (
+                        index !== data.length - 1
+                            ? goNextPage()
+                            : skipGuide())
+                    }
                 >
                     <LinearGradient
                         colors={["#E54500CF", "#FF5C00C9", "#FF9921"]}
