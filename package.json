@@ -18,10 +18,7 @@
     "react-native": "0.68.2",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-linear-gradient": "^2.5.6",
-<<<<<<< Updated upstream
-=======
     "react-native-modalize": "^2.0.13",
->>>>>>> Stashed changes
     "react-native-safe-area-context": "^4.2.5",
     "react-native-screens": "^3.13.1",
     "react-native-snap-carousel": "^3.9.1",
