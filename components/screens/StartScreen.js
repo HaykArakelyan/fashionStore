@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Text, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -28,10 +28,6 @@ function StartScreen(props) {
     const goNextPage = () => {
         setIndex(index + 1);
         carouselRef.current.snapToNext(index);
-    }
-
-    const handleGetStartedPress = () => {
-        dispatch(setIsSkipped())
     }
 
     const skipGuide = () => {
@@ -90,9 +86,13 @@ function StartScreen(props) {
                 }}
             />
 
-            < View style={index === 2 ? styles.alternativeButtons : styles.buttons}>
-                {index !== 2 &&
-                    <TouchableOpacity
+            < View style={
+                index === data.length - 1
+                    ? styles.alternativeButtons
+                    : styles.buttons
+            }>
+                {index !== data.length - 1
+                    && <TouchableOpacity
                         style={styles.skipButtonContainer}
                         onPress={() => skipGuide()}
                     >
@@ -100,7 +100,11 @@ function StartScreen(props) {
                     </TouchableOpacity>}
                 <TouchableOpacity
                     style={styles.nextButtonContainer}
-                    onPress={() => (index !== 2 ? goNextPage() : handleGetStartedPress())}
+                    onPress={() => (
+                        index !== data.length - 1
+                            ? goNextPage()
+                            : skipGuide())
+                    }
                 >
                     <LinearGradient
                         colors={["#E54500CF", "#FF5C00C9", "#FF9921"]}
