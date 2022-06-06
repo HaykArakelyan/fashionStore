@@ -10,9 +10,11 @@ import HomeScreen from "./screens/HomeScreen.js";
 
 import GoBackButton from "./screens/GoBackButton";
 
+import { useNavigation } from "@react-navigation/native";
 
 function StackNavigator() {
     const Stack = createStackNavigator();
+    const navigation = useNavigation();
 
     const { isLoggedIn } = useSelector((state) => state.isLoggedIn)
 
@@ -24,7 +26,12 @@ function StackNavigator() {
                     : 'StartScreen'
             }
             screenOptions={{
-                headerShown: false,
+                headerTitle: "",
+                headerShown: navigation.canGoBack(),
+                headerLeft:
+                    navigation.canGoBack()
+                        ? () => <GoBackButton />
+                        : null
             }}
         >
             <Stack.Screen
@@ -39,20 +46,10 @@ function StackNavigator() {
             <Stack.Screen
                 name='RegisterScreen'
                 component={RegisterScreen}
-                options={{
-                    headerShown: true,
-                    headerTitle: "",
-                    headerLeft: () => <GoBackButton />
-                }}
             />
             <Stack.Screen
                 name='HomeScreen'
                 component={HomeScreen}
-                options={{
-                    headerTitle: "",
-                    headerShown: true,
-                    headerLeft: () => <GoBackButton />
-                }}
             />
         </Stack.Navigator>
     )

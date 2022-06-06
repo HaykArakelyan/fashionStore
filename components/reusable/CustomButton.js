@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 function CustomButton({
-    title,
     buttonColor,
-    textColor,
     handlePress,
+    textColor,
+    title,
 }) {
     return (
         <TouchableOpacity
@@ -19,6 +19,7 @@ function CustomButton({
                 style={{
                     alignSelf: "center",
                     color: textColor,
+                    paddingHorizontal: 20,
                     paddingVertical: 20,
                 }}
             >{title}</Text>

@@ -1,18 +1,18 @@
 import React from 'react';
 import {
-    View,
     StyleSheet,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
-function SocialButtons({
-    title,
-    iconName,
+function IconsButtons({
     iconColor,
-    titleColor
+    iconName,
+    title,
+    titleColor,
 }) {
 
     const styles = StyleSheet.create({
@@ -32,8 +32,8 @@ function SocialButtons({
             flex: 1,
         },
         buttonText: {
+            color: titleColor,
             textAlign: "center",
-            color: titleColor
         },
     })
 
@@ -55,4 +55,4 @@ function SocialButtons({
     );
 }
 
-export default SocialButtons;
+export default IconsButtons;

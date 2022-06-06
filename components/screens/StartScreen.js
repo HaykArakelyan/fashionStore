@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, StyleSheet, Text, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -28,10 +28,6 @@ function StartScreen(props) {
     const goNextPage = () => {
         setIndex(index + 1);
         carouselRef.current.snapToNext(index);
-    }
-
-    const handleGetStartedPress = () => {
-        dispatch(setIsSkipped())
     }
 
     const skipGuide = () => {

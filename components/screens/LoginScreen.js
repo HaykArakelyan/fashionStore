@@ -16,10 +16,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { setIsLoggedIn } from "../../store/loggedInReducer.js";
 
-import Icon from "react-native-vector-icons/FontAwesome";
 import CustomButton from '../reusable/CustomButton';
 import CustomInput from '../reusable/CustomInput';
-import SocialButtons from '../reusable/SocialButtons.js';
+import IconButtons from '../reusable/IconButtons.js';
 
 function LoginScreen() {
     const navigation = useNavigation()
@@ -72,13 +71,13 @@ function LoginScreen() {
                 </LinearGradient>
             </ImageBackground>
             <View style={styles.loginButtonsContainer}>
-                <SocialButtons
+                <IconButtons
                     title={"Continue with Google"}
                     iconName={"google"}
                     iconColor={'red'}
                     titleColor={"#313131"}
                 />
-                <SocialButtons
+                <IconButtons
                     title={"Continue with Facebook"}
                     iconName={"facebook"}
                     iconColor={"blue"}
@@ -162,7 +161,7 @@ function LoginScreen() {
 const styles = StyleSheet.create({
     loginButtonsContainer: {
         backgroundColor: "#F2F2F3",
-        padding: 20,
+        paddingHorizontal: 20,
     },
     loginButton: {
         backgroundColor: "white",

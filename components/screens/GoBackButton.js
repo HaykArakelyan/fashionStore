@@ -18,8 +18,7 @@ function GoBackButton() {
                     <Icon
                         name='arrow-left'
                         size={15}
-                        onPress={() =>
-                            navigation.navigate("LoginScreen")}
+                        onPress={() => navigation.goBack()}
                     />}
             />
         </View>
@@ -28,7 +27,7 @@ function GoBackButton() {
 
 const styles = StyleSheet.create({
     headerLeft: {
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
     }
 })
 
