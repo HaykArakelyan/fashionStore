@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import getCarouselData from "./carouselReducers";
 import isGuideSkipped from "./guideReucer";
 import isLoggedIn from "./loggedInReducer";
-// import getProducts from "./productsReducer";
 
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,7 +14,6 @@ const reducer = combineReducers({
     getCarouselData,
     isGuideSkipped,
     isLoggedIn,
-    // getProducts,
 })
 
 
