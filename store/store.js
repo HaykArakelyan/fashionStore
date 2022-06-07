@@ -22,7 +22,7 @@ const persistConfig = {
     storage: AsyncStorage,
 }
 
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer)//temp
 
 const Store = configureStore({
     reducer: persistedReducer,

@@ -7,16 +7,28 @@ import IconEvil from "react-native-vector-icons/EvilIcons";
 import ColorIcon from './ColorIcon';
 import { LinearTextGradient } from 'react-native-text-gradient';
 
+import { useNavigation } from '@react-navigation/native';
+
 
 function ItemCard({ item }) {
+
+    const navigation = useNavigation();
 
     const [isLiked, setIsLiked] = useState(false)
 
     const handleLikeButtonClick = () => {
         setIsLiked(!isLiked);
     }
+
+    const handleItemPress = (product) => {
+        navigation.navigate("ProductScreen", product);
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => handleItemPress(item)}
+        >
             <View>
                 <Image
                     resizeMode={"contain"}
@@ -85,7 +97,7 @@ function ItemCard({ item }) {
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 

@@ -22,7 +22,7 @@ import IconInput from '../reusable/IconInput';
 import ItemCard from '../reusable/ItemCard';
 import SquaredcircleBackground from '../reusable/SquaredcircleBackground';
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
 
     const [products, setProducts] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -30,13 +30,13 @@ function HomeScreen() {
 
     const sortTypes = ["Women", "Men", "Other"];
 
-
     useEffect(() => {
         (async function () {
             const data = await (await fetch("https://fakestoreapi.com/products")).json()
             setProducts(data);
         })()
     }, [])
+
 
     const sortData = () => {
         if (sortType === "Women") {
@@ -213,7 +213,6 @@ function HomeScreen() {
         </View >
     );
 }
-
 const styleWithProps = (index, length) => StyleSheet.create({
     menuLines: {
         borderBottomColor: index === length - 2 ? "white" : "#DADADA",

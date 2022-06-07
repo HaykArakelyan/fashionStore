@@ -4,10 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
 // import com.swmansion.reanimated.ReanimatedPackage;
-=======
->>>>>>> e601d16268250ff7829d642d1ea417fb2aaba4e7
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

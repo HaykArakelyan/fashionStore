@@ -19,11 +19,8 @@ target 'fashionStore' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-<<<<<<< HEAD
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
-=======
->>>>>>> e601d16268250ff7829d642d1ea417fb2aaba4e7
   target 'fashionStoreTests' do
     inherit! :complete
     # Pods for testing

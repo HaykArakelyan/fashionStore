@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 
 import { Provider } from 'react-redux';
 import Store from "./store/store.js";
@@ -21,6 +21,7 @@ function App() {
         <View style={styles.container}>
           <NavigationContainer>
             <StackNavigator />
+            <StatusBar />
           </NavigationContainer>
         </View>
       </PersistGate>
