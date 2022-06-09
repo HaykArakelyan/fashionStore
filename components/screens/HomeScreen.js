@@ -9,20 +9,21 @@ import {
     View,
 } from 'react-native';
 
-
-
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconFA from "react-native-vector-icons/FontAwesome5";
 
 import LinearGradient from 'react-native-linear-gradient';
 import { LinearTextGradient } from 'react-native-text-gradient';
+import { useGetProductsQuery } from "../../store/products.js";
 
 import CustomButton from "../reusable/CustomButton.js";
 import IconInput from '../reusable/IconInput';
 import ItemCard from '../reusable/ItemCard';
 import SquaredcircleBackground from '../reusable/SquaredcircleBackground';
 
-function HomeScreen({ navigation }) {
+
+
+function HomeScreen() {
 
     const [products, setProducts] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -30,13 +31,15 @@ function HomeScreen({ navigation }) {
 
     const sortTypes = ["Women", "Men", "Other"];
 
+    const { data, error, isLoading, isSuccess, isError } = useGetProductsQuery()
     useEffect(() => {
-        (async function () {
-            const data = await (await fetch("https://fakestoreapi.com/products")).json()
+        if (isSuccess && data) {
             setProducts(data);
-        })()
+        }
     }, [])
-
+    if (isError) {
+        console.log("error occured", error.message);
+    }
 
     const sortData = () => {
         if (sortType === "Women") {
@@ -69,32 +72,30 @@ function HomeScreen({ navigation }) {
         <View style={styles.container}>
             <View style={styles.screenHeader}>
                 <SquaredcircleBackground
-                    bgColor={"white"}
+                    styleBgColor={styleWithProps({ color: "white" }).iconBackgroundColor}
                     title={
                         <Icon
                             name={"account"}
                             size={30}
                         />}
-                    titleColor={"#FE7825"}
+                    titleColor={styleWithProps({ textColor: "#FE7825" }).iconTitleColor}
                 />
-                <TouchableOpacity onPress={() => handleMenuOpen()}>
-                    <View
-                        style={styles.productType}
-                        onPress={() => handleMenuOpen()}
-                    >
-                        <Text style={styles.productTypeText}>
-                            {sortType}
-                        </Text>
-                        <Icon
-                            name={
-                                isMenuOpen
-                                    ? 'chevron-up'
-                                    : 'chevron-down'
-                            }
-                            size={25}
-                            color={"black"}
-                        />
-                    </View>
+                <TouchableOpacity
+                    style={styles.productType}
+                    onPress={handleMenuOpen}
+                >
+                    <Text style={styles.productTypeText}>
+                        {sortType}
+                    </Text>
+                    <Icon
+                        name={
+                            isMenuOpen
+                                ? 'chevron-up'
+                                : 'chevron-down'
+                        }
+                        size={25}
+                        color={"black"}
+                    />
                 </TouchableOpacity>
                 <SquaredcircleBackground
                     title={
@@ -102,8 +103,8 @@ function HomeScreen({ navigation }) {
                             name={"cog-outline"}
                             size={30}
                         />}
-                    titleColor={"black"}
-                    bgColor={"white"}
+                    titleColor={styleWithProps({ textColor: "black" }).iconTitleColor}
+                    styleBgColor={styleWithProps({ color: "white" }).iconBackgroundColor}
                 />
 
                 {isMenuOpen &&
@@ -116,7 +117,7 @@ function HomeScreen({ navigation }) {
                                 key={`${Math.random()}`}
                             >
                                 <Text
-                                    style={styleWithProps(index, sortTypes.length).menuLines}
+                                    style={styleWithProps({ index, length: sortTypes.length }).menuLines}
                                 >
                                     {item}
                                 </Text>
@@ -138,8 +139,8 @@ function HomeScreen({ navigation }) {
                             name={"sliders-h"}
                             size={30}
                         />}
-                    titleColor={"#FE7825"}
-                    bgColor={"white"}
+                    titleColor={styleWithProps({ textColor: "#FE7825" }).iconTitleColor}
+                    styleBgColor={styleWithProps({ color: "white" }).iconBackgroundColor}
                 />
             </View>
             <View style={styles.screenContent}>
@@ -164,10 +165,10 @@ function HomeScreen({ navigation }) {
                                 The joy of premium fashion
                             </Text>
                             <CustomButton
-                                style={styles.button}
                                 buttonColor={"white"}
                                 title={"Buy Now"}
-                                textColor={"#FE7825"}
+                                styleText={styles.customButtonTextStyle}
+                                styleButton={styles.customButtonStyle}
                             />
                         </View>
                     </View>
@@ -200,7 +201,7 @@ function HomeScreen({ navigation }) {
                         </LinearTextGradient>
                     </TouchableOpacity>
                 </View>
-                <View>
+                <View style={styles.productListContainer}>
                     <FlatList
                         data={sortData(products)}
                         key={`${Math.random()}`}
@@ -213,7 +214,7 @@ function HomeScreen({ navigation }) {
         </View >
     );
 }
-const styleWithProps = (index, length) => StyleSheet.create({
+const styleWithProps = ({ index, length, color, textColor }) => StyleSheet.create({
     menuLines: {
         borderBottomColor: index === length - 2 ? "white" : "#DADADA",
         borderColor: "white",
@@ -224,13 +225,19 @@ const styleWithProps = (index, length) => StyleSheet.create({
         paddingHorizontal: 30,
         textAlign: "center",
     },
+    iconBackgroundColor: {
+        backgroundColor: color,
+    },
+    iconTitleColor: {
+        color: textColor,
+    },
 })
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#E5E5E5",
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingTop: 20,
     },
     screenHeader: {
@@ -256,7 +263,8 @@ const styles = StyleSheet.create({
     menu: {
         backgroundColor: "white",
         borderRadius: 20,
-        left: 100,
+        elevation: 10,
+        left: 110,
         paddingHorizontal: 20,
         position: "absolute",
         top: 50,
@@ -291,8 +299,14 @@ const styles = StyleSheet.create({
         marginVertical: 10,
 
     },
+    customButtonStyle: {
+        backgroundColor: "#FFFFFF"
+    },
+    customButtonTextStyle: {
+        color: "#FE7825",
+    },
     productHeader: {
-        alignItems: "center",
+        alignItems: "flex-end",
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: 10,
@@ -307,6 +321,9 @@ const styles = StyleSheet.create({
     products: {
         flex: 1,
     },
+    productListContainer: {
+        flex: 1,
+    }
 })
 
 export default HomeScreen;

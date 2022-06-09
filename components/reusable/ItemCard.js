@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 
-import IconFA from "react-native-vector-icons/FontAwesome";
-import IconEvil from "react-native-vector-icons/EvilIcons";
+import IconAD from "react-native-vector-icons/AntDesign";
 
 import ColorIcon from './ColorIcon';
-import { LinearTextGradient } from 'react-native-text-gradient';
 
+import { LinearTextGradient } from 'react-native-text-gradient';
 import { useNavigation } from '@react-navigation/native';
 
+const colors = [
+    {
+        color: "#FFCD90"
+    },
+    {
+        color: "#FF4F4F"
+    },
+    {
+        color: "#313131"
+    },
+    {
+        color: "#FFFFFF",
+        iconName: "pluscircleo"
+    }
+]
 
 function ItemCard({ item }) {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     const [isLiked, setIsLiked] = useState(false)
 
@@ -32,68 +46,44 @@ function ItemCard({ item }) {
             <View>
                 <Image
                     resizeMode={"contain"}
-                    source={require("../../assets/images/sweater.jpg")}
+                    source={{ uri: item.image }}
                     style={styles.itemImage}
                 />
                 <TouchableOpacity
                     onPress={() => handleLikeButtonClick()}
                     style={styles.likeButton}>
-                    <IconFA
-                        color={"white"}
+                    <IconAD
+                        color={"#313131"}
                         name={
                             isLiked
                                 ? "heart"
-                                : 'heart-o'
+                                : 'hearto'
                         }
                         size={30}
                     />
                 </TouchableOpacity>
             </View>
             <View style={styles.itemContent}>
-                <Text style={styles.itemTitle}>{item.title}</Text>
+                <Text style={styles.itemTitle}>
+                    {item.title}
+                </Text>
                 <View style={styles.itemSubtitle}>
-                    <LinearTextGradient
-                        colors={[
-                            "#E54500CF",
-                            "#FF5C00C9",
-                            "#FF9921"
-                        ]}
-                        locations={[0, 0.85, 1]}
-                        start={{ x: 1, y: 0 }}
-                        end={{ x: 0, y: 0 }}
-                    >
+                    <View>
                         <Text style={styles.itemPrice}>
                             ${item.price}
                         </Text>
-                    </LinearTextGradient>
+                    </View>
                     <View style={styles.itemColorPallet}>
-                        <ColorIcon color={"#FFCD90"} />
-                        <ColorIcon color={"#FF4F4F"} />
-                        <ColorIcon color={"#313131"} />
-                        {/* <ColorIcon
-                            color={"white"}
-                            icon={
-                                <IconEvil
-                                    name='plus'
+                        {colors.map((item) =>
+                            <ColorIcon
+                                key={item.color}
+                                styleColor={stylesArgs({ color: item.color }).colorIcons}
+                                title={<IconAD
+                                    name={item?.iconName}
                                     color={"black"}
-                                    size={20}
-                                    style={{
-                                        marginLeft: -2  ,
-                                    }}
-                                />
-                            }
-                        /> */}
-
-                        {/*When I use the implementation above,
-                        the icon is not standing in the center of the Text Component.
-                        It seemes like there is some margin.
-                        */}
-                        <IconEvil
-                            name='plus'
-                            size={23}
-                            color={"black"}
-                            style={styles.itemCollorPalletPlus}
-                        />
+                                    size={14}
+                                />}
+                            />)}
                     </View>
                 </View>
             </View>
@@ -101,26 +91,31 @@ function ItemCard({ item }) {
     );
 }
 
+const stylesArgs = ({ color }) => StyleSheet.create({
+    colorIcons: {
+        backgroundColor: color,
+    }
+})
+
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
-        backgroundColor: "#B6B6B6",
+        backgroundColor: "white",
         borderRadius: 15,
+        elevation: 5,
         flex: 1,
-        marginHorizontal: 3,
+        marginHorizontal: 2,
         marginVertical: 5,
         overflow: "hidden",
-        paddingVertical: 10,
+        padding: 10,
     },
     itemImage: {
         borderRadius: 15,
         height: 300,
-        width: 160,
+        width: 170,
     },
     likeButton: {
         alignItems: "center",
         alignSelf: "flex-end",
-        backgroundColor: "#B6B6B6",
         borderBottomLeftRadius: 15,
         justifyContent: "center",
         padding: 5,
@@ -129,7 +124,6 @@ const styles = StyleSheet.create({
     itemContent: {
         flex: 1,
         justifyContent: "space-between",
-        paddingHorizontal: 5,
     },
     itemTitle: {
         color: "#313131",
@@ -144,6 +138,8 @@ const styles = StyleSheet.create({
     itemPrice: {
         fontSize: 18,
         fontWeight: "600",
+        flex: 0.5,
+        color: "#FE7825",
     },
     itemColorPallet: {
         flexDirection: "row",

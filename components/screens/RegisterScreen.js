@@ -3,7 +3,6 @@ import {
     View,
     StyleSheet,
     Text,
-    TouchableOpacity
 } from 'react-native';
 
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -12,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import CustomButton from '../reusable/CustomButton';
 import CustomInput from '../reusable/CustomInput';
+import IconButton from '../reusable/IconButtons';
 
 function RegisterScreen(props) {
     const [password, setPassword] = useState("")
@@ -36,35 +36,21 @@ function RegisterScreen(props) {
     return (
         <View style={styles.container}>
             <View>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Icon
-                        name="google"
-                        size={15}
-                        color="red"
-                        style={styles.loginBsuttonIcons}
-                    />
-                    <View style={styles.LoginButtonTextContainer}>
-                        <Text style={styles.loginButtonText}>
-                            Continue with Google
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Icon
-                        name="facebook"
-                        size={12}
-                        color="blue"
-                        style={styles.loginButtonIcons}
-                    />
-                    <View style={styles.LoginButtonTextContainer}>
-                        <Text style={styles.loginButtonText}>
-                            Continue with Facebook
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                <IconButton
+                    title={"Continue With Google"}
+                    iconName={"google"}
+                    iconColor={"red"}
+                    style={styles.buttonTextColor}
+                />
+                <IconButton
+                    title={"Continue With Facebook"}
+                    iconName={"facebook"}
+                    iconColor={"blue"}
+                    style={styles.buttonTextColor}
+                />
                 <View style={styles.lineSegment}>
                     <Text style={styles.lineSegmentText}>
-                        Or
+                        or
                     </Text>
                 </View>
                 <View style={styles.loginInputsContainer}>
@@ -73,11 +59,13 @@ function RegisterScreen(props) {
                     </Text>
                     <CustomInput
                         placeholderText={"Enter your email"}
-                        inputColor={"white"}
-                        textColor={"#979797"}
                         onFocusIn={() => setIsLoginFocused(!isLoginFocused)}
                         onFocusOut={() => setIsLoginFocused(!isLoginFocused)}
-                        hasBorder={isLoginFocused}
+                        style={
+                            isLoginFocused
+                                ? styles.customInputFocused
+                                : styles.customInput
+                        }
                     />
                 </View>
                 <View style={styles.loginInputsContainer}>
@@ -92,8 +80,6 @@ function RegisterScreen(props) {
                         }>
                         <CustomInput
                             placeholderText={"Enter your password"}
-                            inputColor={"white"}
-                            textColor={"#979797"}
                             isPassword={isHidden}
                             onFocusIn={() => setIsPasswordFocused(!isPasswordFocused)}
                             onFocusOut={() => setIsPasswordFocused(!isPasswordFocused)}
@@ -110,8 +96,8 @@ function RegisterScreen(props) {
             <View style={styles.registerButton}>
                 <CustomButton
                     title={"Register"}
-                    buttonColor={"#979797"}
-                    textColor={"white"}
+                    styleButton={styles.customButton}
+                    styleText={styles.customButtonText}
                     handlePress={() => handleRegister()}
                 />
             </View>
@@ -129,37 +115,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#F2F2F3",
         padding: 20,
     },
-    loginButton: {
-        backgroundColor: "white",
-        borderRadius: 15,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 20,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-    },
-    loginButton: {
-        backgroundColor: "white",
-        borderRadius: 15,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 20,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-    },
     LoginButtonTextContainer: {
         flex: 1,
     },
     loginButtonText: {
         textAlign: "center",
     },
-    loginButtonIcons: {
-        alignSelf: "center",
+    buttonTextColor: {
+        color: "#313131"
     },
     lineSegment: {
         backgroundColor: "#DADADA",
         height: 1,
         position: "relative",
+        marginVertical: 20,
     },
     lineSegmentText: {
         alignSelf: "center",
@@ -196,8 +165,20 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         marginBottom: 10,
     },
+    customInput: {
+        borderWidth: 0,
+    },
+    customInputFocused: {
+        borderWidth: 2,
+    },
     registerButton: {
         marginTop: 100
+    },
+    customButton: {
+        backgroundColor: "#979797",
+    },
+    customButtonText: {
+        color: "white"
     }
 })
 

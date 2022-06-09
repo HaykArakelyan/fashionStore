@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import { LinearTextGradient } from 'react-native-text-gradient';
 
@@ -8,15 +8,9 @@ function CustomText({ text, limit, design }) {
     const [showFullText, setShowFullText] = useState(false)
     const [max, setMax] = useState(limit);
 
-    const handleReadMorePress = () => {
-
-    }
-
     if (text.length >= max) {
         return (
-            <View
-                style={styles.container}
-            >
+            <View>
                 <Text style={design}>
                     {text.substring(0, max)}
                     {showFullText ? "" : <Text>....</Text>}
@@ -62,9 +56,5 @@ function CustomText({ text, limit, design }) {
         );
     }
 }
-
-const styles = StyleSheet.create({
-
-})
 
 export default CustomText;

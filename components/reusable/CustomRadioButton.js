@@ -1,52 +1,46 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+} from 'react-native';
 
 function CustomRadioButton({
-    activeBgColor = bgColor,
-    activeTextColor,
-    activeBorderColor,
-    bgColor,
-    borderColor,
     hadnlePress,
-    isActive,
+    item,
+    style,
     text,
-    textColor,
-    setRender,
+    textStyle,
 }) {
-
-    const styles = StyleSheet.create({
-        container: {
-            alignItems: "center",
-            alignSelf: "center",
-            // backgroundColor: isActive ? activeBgColor : bgColor,
-            // borderColor: isActive ? activeBorderColor : borderColor,
-            borderRadius: 50,
-            borderStyle: "solid",
-            // borderWidth: isActive ? 0 : 2,
-            // height: isActive ? 26 : 30,
-            justifyContent: "center",
-            marginHorizontal: 3,
-            // width: isActive ? 26 : 30,
-        },
-        text: {
-            // color: isActive ? activeTextColor : textColor,
-            fontSize: 12,
-        }
-    })
-
-
     return (
         <TouchableOpacity
-            style={styles.container}
+            style={[{ backgroundColor: item }, styles.container, style]}
             onPress={() => {
-                hadnlePress(text);
+                hadnlePress(item);
             }}
         >
-            <Text style={styles.text}>
+            <Text style={[styles.text, textStyle]}>
                 {text}
             </Text>
         </TouchableOpacity>
     );
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: "center",
+        alignSelf: "center",
+        borderRadius: 50,
+        borderStyle: "solid",
+        height: 30,
+        justifyContent: "center",
+        marginHorizontal: 3,
+        width: 30,
+    },
+    text: {
+        fontSize: 12,
+    }
+})
 
 export default CustomRadioButton;
